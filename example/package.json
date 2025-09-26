@@ -22,7 +22,7 @@
     "react-native-dotenv": "^3.4.11",
     "react-native-gesture-handler": "^2.8.0",
     "react-native-image-picker": "^7.1.2",
-    "react-native-keyboard-area": "thomasgazzoni/react-native-keyboard-area#master",
+    "react-native-keyboard-area": "^1.0.6",
     "react-native-linear-gradient": "2.6.2",
     "react-native-permissions": "3.6.1",
     "react-native-pure-jwt": "3.0.2",

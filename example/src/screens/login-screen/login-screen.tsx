@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useAuth } from '../../context';
 import {
   View,
   Text,
@@ -8,6 +9,7 @@ import {
   SafeAreaView,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from 'react-native';
 
 type LoginScreenProps = {
@@ -17,11 +19,27 @@ type LoginScreenProps = {
 export function LoginScreen({ navigation }: LoginScreenProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
-    // For now, just navigate to join meeting if both fields have values
-    if (email && password) {
-      navigation.replace('JoinMeeting');
+  const handleLogin = async () => {
+    if (!email || !password) {
+      Alert.alert('Error', 'Please fill in all fields');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const success = await login(email, password);
+      if (success) {
+        navigation.replace('JoinMeeting');
+      } else {
+        Alert.alert('Error', 'Invalid credentials');
+      }
+    } catch (error) {
+      Alert.alert('Error', 'Something went wrong');
+    } finally {
+      setLoading(false);
     }
   };
 
